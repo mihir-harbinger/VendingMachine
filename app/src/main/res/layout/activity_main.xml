@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.mihir.vendingmachine.MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Green tea"
+            android:id="@+id/checkBox1"
+            android:paddingLeft="@dimen/padding_checkbox"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:checked="false"
+            android:textSize="18dp"
+            android:layout_marginBottom="20dp" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Black Coffee"
+            android:id="@+id/checkBox2"
+            android:paddingLeft="@dimen/padding_checkbox"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:checked="false"
+            android:textSize="18dp"
+            android:layout_marginBottom="20dp" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lemonade"
+            android:id="@+id/checkBox3"
+            android:paddingLeft="@dimen/padding_checkbox"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:checked="false"
+            android:textSize="18dp"
+            android:layout_marginBottom="20dp" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hot Water"
+            android:id="@+id/checkBox4"
+            android:paddingLeft="@dimen/padding_checkbox"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:checked="false"
+            android:textSize="18dp"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place Order"
+            android:id="@+id/button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth ON"
+            android:id="@+id/textView1"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_weight="0.5"
+            android:textColor="@android:color/holo_blue_bright" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Connected"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_weight="0.5"
+            android:textColor="@android:color/holo_green_light" />
+
+    </LinearLayout>
+
+</RelativeLayout>
