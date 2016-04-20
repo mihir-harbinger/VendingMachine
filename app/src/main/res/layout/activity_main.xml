@@ -13,93 +13,145 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/linearLayout3">
 
-        <CheckBox
+        <TabHost
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Green tea"
-            android:id="@+id/checkBox1"
-            android:paddingLeft="@dimen/padding_checkbox"
-            android:layout_below="@+id/linearLayout"
+            android:id="@+id/tabHost"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:textSize="18dp"
-            android:layout_marginBottom="20dp" />
+            android:id="@+id/linearLayout">
 
-        <CheckBox
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Green tea"
+                android:id="@+id/checkBox1"
+                android:paddingLeft="@dimen/padding_checkbox"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:checked="false"
+                android:textSize="18dp"
+                android:layout_marginBottom="20dp" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Black Coffee"
+                android:id="@+id/checkBox2"
+                android:paddingLeft="@dimen/padding_checkbox"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:checked="false"
+                android:textSize="18dp"
+                android:layout_marginBottom="20dp" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lemonade"
+                android:id="@+id/checkBox3"
+                android:paddingLeft="@dimen/padding_checkbox"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:checked="false"
+                android:textSize="18dp"
+                android:layout_marginBottom="20dp" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hot Water"
+                android:id="@+id/checkBox4"
+                android:paddingLeft="@dimen/padding_checkbox"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:checked="false"
+                android:textSize="18dp"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Place Order"
+                android:id="@+id/button"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Black Coffee"
-            android:id="@+id/checkBox2"
-            android:paddingLeft="@dimen/padding_checkbox"
             android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:textSize="18dp"
-            android:layout_marginBottom="20dp" />
+            android:paddingTop="20dp"
+            android:id="@+id/linearLayout2">
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lemonade"
-            android:id="@+id/checkBox3"
-            android:paddingLeft="@dimen/padding_checkbox"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:textSize="18dp"
-            android:layout_marginBottom="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bluetooth OFF"
+                android:id="@+id/textView1"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:layout_weight="0.5"
+                android:textColor="#cccccc" />
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hot Water"
-            android:id="@+id/checkBox4"
-            android:paddingLeft="@dimen/padding_checkbox"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:checked="false"
-            android:textSize="18dp"
-            android:layout_marginBottom="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disconnected"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:layout_weight="0.5"
+                android:textColor="#cccccc" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Place Order"
-            android:id="@+id/button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:paddingTop="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bluetooth ON"
-            android:id="@+id/textView1"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:layout_weight="0.5"
-            android:textColor="@android:color/holo_blue_bright" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Connected"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:layout_weight="0.5"
-            android:textColor="@android:color/holo_green_light" />
+        </LinearLayout>
 
     </LinearLayout>
 
