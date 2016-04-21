@@ -66,6 +66,9 @@ public class bleScanner {
                 public void run() {
                     mDiscoveredDevices.clear();
                     mScanner.stopScan(mScanCallback);
+                    if(!mActivity.getConnectionStatus()){
+                        mActivity.setConnectionStatus("Scanning Stopped", false);
+                    }
                 }
             }, SCAN_TIMEOUT);
         }

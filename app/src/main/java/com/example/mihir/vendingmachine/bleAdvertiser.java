@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class bleAdvertiser {
 
-    static final long ADVERTISE_TIMEOUT = 50000l;
+//    static final long ADVERTISE_TIMEOUT = 30000l;
 
     private BluetoothManager mBluetoothManager;
     private BluetoothGattServer mGattserver;
@@ -63,7 +63,7 @@ public class bleAdvertiser {
                     @Override
                     public void onCharacteristicReadRequest(BluetoothDevice device, int requestId, int offset, BluetoothGattCharacteristic characteristic) {
                         super.onCharacteristicReadRequest(device, requestId, offset, characteristic);
-                        Log.e("bleAdvertiser", "onCharacteristicReadRequest");
+                        Log.i("bleAdvertiser", "onCharacteristicReadRequest");
                     }
 
                     @Override
@@ -75,7 +75,7 @@ public class bleAdvertiser {
                     @Override
                     public void onNotificationSent(BluetoothDevice device, int status) {
                         super.onNotificationSent(device, status);
-                        Log.e("bleAdvertiser", "onNotificationSent");
+                        Log.i("bleAdvertiser", "onNotificationSent");
                     }
 
                     @Override
@@ -87,18 +87,18 @@ public class bleAdvertiser {
                                 msg = new String(value);
                                 //mActivity.serveIncomingRequest(msg);
                             }
-                            Log.e("bleAdvertiser", "onCharacteristicWriteRequest: " + msg);
+                            Log.i("bleAdvertiser", "onCharacteristicWriteRequest: " + msg);
                             //mActivity.setMessageText(msg);
                         }
                     }
                 });
                 mGattserver.addService(ServiceFactory.generateService());
             } else {
-                Log.e("bleAdvertiser", "Central mode not supported by the device!");
+                Log.i("bleAdvertiser", "Central mode not supported by the device!");
             }
         } else {
             mActivity.setConnectionStatus("Disconnected", false);
-            Log.e("bleAdvertiser", "Bluetooth is disabled!");
+            Log.i("bleAdvertiser", "Bluetooth is disabled!");
         }
     }
 
@@ -116,20 +116,21 @@ public class bleAdvertiser {
         settingsBuilder.setConnectable(true);
 
         bluetoothLeAdvertiser.startAdvertising(settingsBuilder.build(), dataBuilder.build(), mAdvertiseCallback);
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                bluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
-            }
-        }, ADVERTISE_TIMEOUT);
+//        final Handler handler = new Handler(Looper.getMainLooper());
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                bluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
+//                mActivity.setAdvertisementStatus("Vending Machine OFF", false);
+//            }
+//        }, ADVERTISE_TIMEOUT);
     }
 
     public void sendMessage(String msg) {
         if (mConnectedDevice != null) {
             BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID));
             characteristic.setValue(msg);
-            Log.e("bleAdvertiser", "onCharacteristicWrite and notification");
+            Log.i("bleAdvertiser", "onCharacteristicWrite and notification");
             mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
         }
     }
@@ -141,19 +142,25 @@ public class bleAdvertiser {
         }
     }
 
+    public void stopAdvertising(){
+        final BluetoothLeAdvertiser bluetoothLeAdvertiser = mBluetoothManager.getAdapter().getBluetoothLeAdvertiser();
+        bluetoothLeAdvertiser.stopAdvertising(mAdvertiseCallback);
+        mActivity.setAdvertisementStatus("Vending Machine OFF", false);
+    }
+
     private AdvertiseCallback mAdvertiseCallback = new AdvertiseCallback() {
         @Override
         public void onStartSuccess(AdvertiseSettings settingsInEffect) {
             super.onStartSuccess(settingsInEffect);
-            mActivity.setAdvertisementStatus("Advertising", true);
-            Log.e("bleAdvertiser", "Advertising started successfully");
+            mActivity.setAdvertisementStatus("Vending Machine ON", true);
+            Log.i("bleAdvertiser", "Advertising started successfully");
         }
 
         @Override
         public void onStartFailure(int errorCode) {
             super.onStartFailure(errorCode);
-            mActivity.setAdvertisementStatus("", false);
-            Log.e("bleAdvertiser", "Advertising failed error code = " + errorCode);
+            mActivity.setAdvertisementStatus("Vending Machine OFF", false);
+            Log.i("bleAdvertiser", "Advertising failed error code = " + errorCode);
         }
     };
 }
