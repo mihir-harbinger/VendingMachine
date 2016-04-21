@@ -1,6 +1,7 @@
 package com.example.mihir.vendingmachine;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,19 @@ import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity  {
 
+    //objects
+    private BluetoothManager mBluetoothManager;
+    private bleAdvertiser mAdvertiser;
+    private bleScanner mBleScanner;
+
+    //ui components
     private CheckBox chkGreentea;
     private CheckBox chkBlackCoffee;
     private CheckBox chkLemonade;
     private CheckBox chkHotWater;
     private TextView txtBluetoothStatus;
     private TextView txtConnectionStatus;
+    private TextView txtAdvertisementStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,9 @@ public class MainActivity extends AppCompatActivity  {
         //ui outlets
         txtBluetoothStatus = (TextView) findViewById(R.id.textView1);
         txtConnectionStatus = (TextView) findViewById(R.id.textView2);
+        txtAdvertisementStatus = (TextView) findViewById(R.id.textView3);
 
+        //check bluetooth status at startup
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
 
@@ -80,6 +90,21 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     };
+
+    private void startAdvertising() {
+        if (mAdvertiser == null){
+            mAdvertiser = new bleAdvertiser(this, mBluetoothManager);
+        }
+        mAdvertiser.startAdvertising();
+    }
+
+    private void startScanning() {
+        if (mBleScanner == null){
+            mBleScanner = new bleScanner(this, mBluetoothManager);
+        }
+        mBleScanner.startScanning();
+    }
+
     public void setDeviceStatus(final String message, final boolean colorCode) {
         runOnUiThread(new Runnable() {
             public void run() {
@@ -93,5 +118,29 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-    //#99cc00
+    public void setConnectionStatus(final String message, final boolean colorCode) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                if (colorCode) {
+                    txtConnectionStatus.setTextColor(Color.parseColor("#99cc00"));
+                } else {
+                    txtConnectionStatus.setTextColor(Color.parseColor("#cccccc"));
+                }
+                txtConnectionStatus.setText(message);
+            }
+        });
+    }
+    public void setAdvertisementStatus(final String message, final boolean colorCode){
+        runOnUiThread(new Runnable(){
+            public void run(){
+                if(colorCode){
+                    txtAdvertisementStatus.setTextColor(Color.parseColor("#ff4081"));
+                }
+                else{
+                    txtAdvertisementStatus.setTextColor(Color.parseColor("#cccccc"));
+                }
+                txtConnectionStatus.setText(message);
+            }
+        });
+    }
 }
