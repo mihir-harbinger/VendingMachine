@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.ParcelUuid;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,21 @@ public class bleScanner {
             Log.e("bleScanner", "Bluetooth is disabled!");
         }
     }
+//    private boolean refreshDeviceCache(BluetoothGatt gatt){
+//        try {
+//            BluetoothGatt localBluetoothGatt = gatt;
+//            Method localMethod = localBluetoothGatt.getClass().getMethod("refresh", new Class[0]);
+//            if (localMethod != null) {
+//                boolean bool = ((Boolean) localMethod.invoke(localBluetoothGatt, new Object[0])).booleanValue();
+//                return bool;
+//            }
+//        }
+//        catch (Exception localException) {
+//            Log.e("bleScanner", "An exception occurred while refreshing device");
+//        }
+//        return false;
+//    }
+
 
     private void connectToGattServer(BluetoothDevice device){
 
@@ -120,7 +136,7 @@ public class bleScanner {
             public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
                 super.onCharacteristicChanged(gatt, characteristic);
                 Log.e("bleScanner", "Characteristic changed value: " + characteristic.getStringValue(0));
-//                mActivity.serveIncomingRequest(characteristic.getStringValue(0));
+                mActivity.printResponseFromMachine(characteristic.getStringValue(0));
             }
         });
     }

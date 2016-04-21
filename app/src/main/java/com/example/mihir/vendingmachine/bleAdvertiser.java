@@ -52,10 +52,10 @@ public class bleAdvertiser {
                         super.onConnectionStateChange(device, status, newState);
                         if (newState == BluetoothProfile.STATE_CONNECTED) {
                             //sendMessage("HELLO");
-                            mActivity.setConnectionStatus("Connected", true);
+                            //mActivity.setConnectionStatus("Connected", true);
                             mConnectedDevice = device;
                         } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                            mActivity.setConnectionStatus("Disconnected", false);
+                            //mActivity.setConnectionStatus("Disconnected", false);
                             mConnectedDevice = null;
                         }
                     }
@@ -85,7 +85,10 @@ public class bleAdvertiser {
                             String msg = "";
                             if (value != null) {
                                 msg = new String(value);
-                                //mActivity.serveIncomingRequest(msg);
+
+                                mActivity.serveIncomingRequest("Order queued!\n\""+msg+"\"");
+                                sendMessage("Dispensing coffee...");
+                                sendMessageWithDelay("Your order is ready.");
                             }
                             Log.i("bleAdvertiser", "onCharacteristicWriteRequest: " + msg);
                             //mActivity.setMessageText(msg);
@@ -133,6 +136,22 @@ public class bleAdvertiser {
             Log.i("bleAdvertiser", "onCharacteristicWrite and notification");
             mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
         }
+    }
+
+    public void sendMessageWithDelay(final String msg) {
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mConnectedDevice != null) {
+                    BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID));
+                    characteristic.setValue(msg);
+                    Log.i("bleAdvertiser", "onCharacteristicWrite and notification");
+                    mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
+                }
+            }
+        }, 5000);
+
     }
 
     public void destroy() {

@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private TextView txtBluetoothStatus;
     private TextView txtConnectionStatus;
     private TextView txtAdvertisementStatus;
+    private TextView txtPrintMessage;
+    private TextView txtStatus;
+    private Button btnScan;
     private Button btnPlaceOrder;
     private Button btnToggleMachine;
     private TabHost tabHost;
@@ -49,17 +53,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         chkBlackCoffee  = (CheckBox) findViewById(R.id.checkBox2);
         chkLemonade     = (CheckBox) findViewById(R.id.checkBox3);
         chkHotWater     = (CheckBox) findViewById(R.id.checkBox4);
-        btnPlaceOrder   = (Button) findViewById(R.id.button_scan);
+        btnScan         = (Button) findViewById(R.id.button_scan);
+        btnPlaceOrder   = (Button) findViewById(R.id.button_placeOrder);
         btnToggleMachine= (Button) findViewById(R.id.button_advertise);
 
         //ui outlets
         txtBluetoothStatus = (TextView) findViewById(R.id.textView1);
         txtConnectionStatus = (TextView) findViewById(R.id.textView2);
         txtAdvertisementStatus = (TextView) findViewById(R.id.textView3);
+        txtPrintMessage = (TextView) findViewById(R.id.textView5);
+        txtStatus = (TextView) findViewById(R.id.textView6);
 
         //onClick listeners
         findViewById(R.id.button_scan).setOnClickListener(this);
         findViewById(R.id.button_advertise).setOnClickListener(this);
+        findViewById(R.id.button_placeOrder).setOnClickListener(this);
 
         //tab view
         tabHost = (TabHost) findViewById(R.id.tabHost);
@@ -83,12 +91,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             if (mBluetoothAdapter.isEnabled()) {
                 txtBluetoothStatus.setTextColor(Color.parseColor("#00ddff"));
                 txtBluetoothStatus.setText("Bluetooth ON");
-                startScanning();
                 // Bluetooth is not enable :)
             }
             else{
                 txtBluetoothStatus.setTextColor(Color.parseColor("#cccccc"));
                 txtBluetoothStatus.setText("Bluetooth OFF");
+                Toast.makeText(MainActivity.this, "Please turn Bluetooth ON", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -112,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                         break;
                     case BluetoothAdapter.STATE_ON:
                         setDeviceStatus("Bluetooth ON", true);
-                        startScanning();
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         setDeviceStatus("Turning ON...", true);
@@ -165,18 +172,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     break;
                 }
                 startScanning();
-                setConnectionStatus("Scanning", true);
                 break;
-//            case R.id.button_send:
-//                if (mEditTextMsg.getText() != null) {
-//                    if (mBleScanner != null) {
-//                        mBleScanner.sendMessage(mEditTextMsg.getText().toString());
-//                    } else if (mAdvertiser != null) {
-//                        mAdvertiser.sendMessage(mEditTextMsg.getText().toString());
-//                    }
-//                    mEditTextMsg.setText("");
-//                }
-//                break;
+            case R.id.button_placeOrder:
+                if (mBleScanner != null) {
+                    mBleScanner.sendMessage("Coffee, please.");
+                }
+                break;
 //            case R.id.responseIndicator_1:
 //                //Toast.makeText(this, "Call request sent", Toast.LENGTH_SHORT).show();
 //                if (mBleScanner != null) {
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             mBleScanner = new bleScanner(this, mBluetoothManager);
         }
         mBleScanner.startScanning();
+        setConnectionStatus("Scanning", true);
     }
 
     public void setDeviceStatus(final String message, final boolean colorCode) {
@@ -256,6 +258,22 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     btnToggleMachine.setText("Turn ON");
                 }
                 txtAdvertisementStatus.setText(message);
+            }
+        });
+    }
+    public void serveIncomingRequest(final String str){
+        runOnUiThread(new Runnable() {
+            public void run() {
+                txtPrintMessage.setText(str);
+            }
+        });
+    }
+
+    public void printResponseFromMachine(final String str){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtStatus.setText(str);
             }
         });
     }
