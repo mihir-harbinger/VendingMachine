@@ -304,10 +304,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                                 })
                                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // do nothing
+                                        mAdvertiser.sendMessage("Machine out of order :(");
                                     }
                                 })
-                                .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
                     }
                 });

@@ -77,29 +77,14 @@ public class bleScanner {
             Log.e("bleScanner", "Bluetooth is disabled!");
         }
     }
-//    private boolean refreshDeviceCache(BluetoothGatt gatt){
-//        try {
-//            BluetoothGatt localBluetoothGatt = gatt;
-//            Method localMethod = localBluetoothGatt.getClass().getMethod("refresh", new Class[0]);
-//            if (localMethod != null) {
-//                boolean bool = ((Boolean) localMethod.invoke(localBluetoothGatt, new Object[0])).booleanValue();
-//                return bool;
-//            }
-//        }
-//        catch (Exception localException) {
-//            Log.e("bleScanner", "An exception occurred while refreshing device");
-//        }
-//        return false;
-//    }
-
 
     private void connectToGattServer(BluetoothDevice device){
-
         device.connectGatt(mContext, false, new BluetoothGattCallback() {
             @Override
             public void onServicesDiscovered(BluetoothGatt gatt, int status) {
                 super.onServicesDiscovered(gatt, status);
                 mGatt = gatt;
+                refreshDeviceCache(mGatt);
                 for (int i = 0; i < gatt.getServices().size(); i++) {
                     BluetoothGattService service = gatt.getServices().get(i);
                     Log.e("bleScanner", "Service discovered: " + service.getUuid());
@@ -152,6 +137,19 @@ public class bleScanner {
         if (mGatt != null) {
             mGatt.disconnect();
             mGatt.close();
+        }
+    }
+
+    private void refreshDeviceCache(BluetoothGatt gatt){
+        try {
+            BluetoothGatt localBluetoothGatt = gatt;
+            Method localMethod = localBluetoothGatt.getClass().getMethod("refresh", new Class[0]);
+            if (localMethod != null) {
+                localMethod.invoke(localBluetoothGatt, new Object[0]);
+            }
+        }
+        catch (Exception localException) {
+            Log.e("bleScanner", localException.getMessage());
         }
     }
 
