@@ -4,9 +4,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Button btnPlaceOrder;
     private Button btnToggleMachine;
     private TabHost tabHost;
+
+    //handler
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         tabHost.addTab(tabHost.newTabSpec("MACHINE").setIndicator("MACHINE").setContent(R.id.linearLayout5));
         tabHost.setCurrentTab(0);
 
+        handler = new Handler();
 
         //check bluetooth status at startup
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -175,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.button_placeOrder:
                 if (mBleScanner != null) {
-                    mBleScanner.sendMessage("Coffee, please.");
+                    mBleScanner.sendMessage("REQ");
                 }
                 break;
 //            case R.id.responseIndicator_1:
@@ -276,5 +282,37 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 txtStatus.setText(str);
             }
         });
+    }
+
+    public void isRequestAccepted(final String msg){
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() { // This thread runs in the UI
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Incoming Request")
+                                .setMessage("Do I have enough sugar, water, milk powder?")
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        mAdvertiser.sendMessage("Dispensing Coffee...");
+                                        mAdvertiser.sendMessageWithDelay("Order Served!");
+                                    }
+                                })
+                                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+            }
+        };
+        new Thread(runnable).start();
     }
 }

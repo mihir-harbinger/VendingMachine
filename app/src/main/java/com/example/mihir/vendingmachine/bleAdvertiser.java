@@ -85,10 +85,7 @@ public class bleAdvertiser {
                             String msg = "";
                             if (value != null) {
                                 msg = new String(value);
-
-                                mActivity.serveIncomingRequest("Order queued!\n\""+msg+"\"");
-                                sendMessage("Dispensing coffee...");
-                                sendMessageWithDelay("Your order is ready.");
+                                mActivity.isRequestAccepted(msg);
                             }
                             Log.i("bleAdvertiser", "onCharacteristicWriteRequest: " + msg);
                             //mActivity.setMessageText(msg);
