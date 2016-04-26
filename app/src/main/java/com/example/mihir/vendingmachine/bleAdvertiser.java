@@ -47,7 +47,6 @@ public class bleAdvertiser {
                     public void onConnectionStateChange(BluetoothDevice device, int status, int newState) {
                         super.onConnectionStateChange(device, status, newState);
                         if (newState == BluetoothProfile.STATE_CONNECTED) {
-                            //sendMessage("HELLO");
                             //mActivity.setConnectionStatus("Connected", true);
                             mConnectedDevice = device;
                         } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
@@ -76,12 +75,20 @@ public class bleAdvertiser {
 
                     @Override
                     public void onCharacteristicWriteRequest(BluetoothDevice device, int requestId, BluetoothGattCharacteristic characteristic, boolean preparedWrite, boolean responseNeeded, int offset, byte[] value) {
+                        final String items[] = {"Green Tea", "Black Coffee", "Lemonade", "Hot Water"};
                         super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value);
                         if (characteristic.getUuid().equals(UUID.fromString(Constants.VM_CHARACTERISTIC_UUID))) {
                             String msg = "";
                             if (value != null) {
                                 msg = new String(value);
-                                mActivity.isRequestAccepted(msg);
+                                if(msg.equals("HANDSHAKE")){
+                                    for (String str: items) {
+                                        sendMessageWithDelay("ITEM "+str);
+                                    }
+                                }
+                                else{
+                                    mActivity.isRequestAccepted(msg);
+                                }
                             }
                             Log.i("bleAdvertiser", "onCharacteristicWriteRequest: " + msg);
                             //mActivity.setMessageText(msg);
@@ -143,7 +150,7 @@ public class bleAdvertiser {
                     mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
                 }
             }
-        }, 5000);
+        }, 1000);
 
     }
 

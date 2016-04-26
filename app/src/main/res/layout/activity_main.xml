@@ -48,6 +48,12 @@
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"></LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:id="@+id/linearLayout">
@@ -62,84 +68,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="20dp"
                                 android:focusableInTouchMode="true"
                                 android:layout_marginBottom="20dp">
 
-                                <EditText
-                                    android:layout_width="match_parent"
+                                <TextView
+                                    android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="textPersonName"
-                                    android:text="Name"
-                                    android:ems="10"
-                                    android:id="@+id/edtTxtDeviceName"
-                                    android:maxLength="8" />
-                            </LinearLayout>
-
-                            <CheckBox
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Green tea"
-                                android:id="@+id/checkBox1"
-                                android:paddingLeft="@dimen/padding_checkbox"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:checked="false"
-                                android:textSize="18dp"
-                                android:layout_marginBottom="20dp" />
-
-                            <CheckBox
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Black Coffee"
-                                android:id="@+id/checkBox2"
-                                android:paddingLeft="@dimen/padding_checkbox"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:checked="false"
-                                android:textSize="18dp"
-                                android:layout_marginBottom="20dp" />
-
-                            <CheckBox
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Lemonade"
-                                android:id="@+id/checkBox3"
-                                android:paddingLeft="@dimen/padding_checkbox"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:checked="false"
-                                android:textSize="18dp"
-                                android:layout_marginBottom="20dp" />
-
-                            <CheckBox
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Hot Water"
-                                android:id="@+id/checkBox4"
-                                android:paddingLeft="@dimen/padding_checkbox"
-                                android:layout_below="@+id/linearLayout"
-                                android:layout_centerHorizontal="true"
-                                android:checked="false"
-                                android:textSize="18dp"
-                                android:layout_marginBottom="20dp" />
-
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                    android:text="New Text"
+                                    android:id="@+id/textView"
+                                    android:layout_weight="0.5"
+                                    android:textAlignment="center" />
 
                                 <Button
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Place Order"
-                                    android:id="@+id/button_placeOrder"
-                                    android:layout_weight="0.5" />
-
-                                <Button
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Start Scan"
+                                    android:text="Find Machine"
                                     android:id="@+id/button_scan"
                                     android:layout_centerVertical="true"
                                     android:layout_centerHorizontal="true"
@@ -149,41 +93,75 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/linearLayout"
-                            android:paddingTop="20dp"
-                            android:id="@+id/linearLayout2">
-
-                            <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Bluetooth OFF"
-                                android:id="@+id/textView1"
-                                android:textAlignment="center"
-                                android:layout_weight="0.5"
-                                android:textColor="#cccccc" />
-
-                            <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Disconnected"
-                                android:id="@+id/textView2"
-                                android:textAlignment="center"
-                                android:layout_weight="0.5"
-                                android:textColor="#cccccc" />
+                            android:visibility="visible"
+                            android:id="@+id/menuLayout">
 
                         </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:id="@+id/textView6"
-                            android:textAlignment="center"
-                            android:layout_marginTop="40dp"
-                            android:layout_gravity="center" />
+                            android:layout_height="wrap_content">
+
+                            <Button
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Place Order"
+                                android:id="@+id/button_placeOrder"
+                                android:layout_weight="0.5"
+                                android:visibility="invisible" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:id="@+id/textView6"
+                                android:inputType="textMultiLine"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_alignParentBottom="true"
+                            android:gravity = "bottom"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/linearLayout2"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Bluetooth OFF"
+                                    android:id="@+id/textView1"
+                                    android:textAlignment="center"
+                                    android:layout_weight="0.5"
+                                    android:textColor="#cccccc" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Disconnected"
+                                    android:id="@+id/textView2"
+                                    android:textAlignment="center"
+                                    android:layout_weight="0.5"
+                                    android:textColor="#cccccc" />
+
+                            </LinearLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
                     <LinearLayout

@@ -92,6 +92,7 @@ public class bleScanner {
                             Log.e("bleScanner", "Characteristic discovered: " + mCharacteristic.getUuid());
                             mActivity.setConnectionStatus("Connected", true);
                             gatt.setCharacteristicNotification(mCharacteristic, true);
+                            sendMessage("HANDSHAKE");
                         }
                     }
                 }
@@ -115,7 +116,13 @@ public class bleScanner {
             public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
                 super.onCharacteristicChanged(gatt, characteristic);
                 Log.e("bleScanner", "Characteristic changed value: " + characteristic.getStringValue(0));
-                mActivity.printResponseFromMachine(characteristic.getStringValue(0));
+                String msg = characteristic.getStringValue(0);
+                if(msg.contains("ITEM")){
+                    mActivity.addItemToMenu(msg);
+                }
+                else{
+                    mActivity.printResponseFromMachine(msg);
+                }
             }
         });
     }

@@ -7,15 +7,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.graphics.Color;
@@ -29,27 +32,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private bleScanner mBleScanner;
 
     //ui components
-    private CheckBox chkGreentea;
-    private CheckBox chkBlackCoffee;
-    private CheckBox chkLemonade;
-    private CheckBox chkHotWater;
     private TextView txtBluetoothStatus;
     private TextView txtConnectionStatus;
     private TextView txtAdvertisementStatus;
     private TextView txtPrintMessage;
     private TextView txtStatus;
+    private TextView txtDeviceName;
     private Button btnScan;
     private Button btnPlaceOrder;
     private Button btnToggleMachine;
     private TabHost tabHost;
-    private EditText edtTxtDeviceName;
+    private LinearLayout llMenu;
 
     //handler
     private Handler handler;
-
-    //temp
-    private String deviceMfg;
-    private String deviceModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +56,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 
         //ui actions
-        chkGreentea     = (CheckBox) findViewById(R.id.checkBox1);
-        chkBlackCoffee  = (CheckBox) findViewById(R.id.checkBox2);
-        chkLemonade     = (CheckBox) findViewById(R.id.checkBox3);
-        chkHotWater     = (CheckBox) findViewById(R.id.checkBox4);
         btnScan         = (Button) findViewById(R.id.button_scan);
         btnPlaceOrder   = (Button) findViewById(R.id.button_placeOrder);
         btnToggleMachine= (Button) findViewById(R.id.button_advertise);
@@ -74,7 +66,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         txtAdvertisementStatus = (TextView) findViewById(R.id.textView3);
         txtPrintMessage = (TextView) findViewById(R.id.textView5);
         txtStatus = (TextView) findViewById(R.id.textView6);
-        edtTxtDeviceName = (EditText) findViewById(R.id.edtTxtDeviceName);
+        txtDeviceName = (TextView) findViewById(R.id.textView);
+
+        //menu layout
+        llMenu = (LinearLayout) findViewById(R.id.menuLayout);
 
         //onClick listeners
         findViewById(R.id.button_scan).setOnClickListener(this);
@@ -93,9 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         handler = new Handler();
 
         //set device name
-        //deviceMfg = android.os.Build.MANUFACTURER.substring(0,1).toUpperCase() + android.os.Build.MANUFACTURER.substring(1);
-        deviceModel = android.os.Build.MODEL.substring(0,1).toUpperCase() + android.os.Build.MODEL.substring(1);
-        edtTxtDeviceName.setText(deviceModel);
+        txtDeviceName.setText("Hello, " + Build.MODEL);
 
         //check bluetooth status at startup
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -196,21 +189,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     mBleScanner.sendMessage("REQ");
                 }
                 break;
-//            case R.id.responseIndicator_1:
-//                //Toast.makeText(this, "Call request sent", Toast.LENGTH_SHORT).show();
-//                if (mBleScanner != null) {
-//                    mBleScanner.sendMessage("CALL");
-//                } else if (mAdvertiser != null) {
-//                    mAdvertiser.sendMessage("CALL");
-//                }
-//                break;
-//            case R.id.responseIndicator_2:
-//                if (mBleScanner != null) {
-//                    mBleScanner.sendMessage("TEST");
-//                } else if (mAdvertiser != null) {
-//                    mAdvertiser.sendMessage("TEST");
-//                }
-//                break;
         }
     }
 
@@ -292,6 +270,28 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             @Override
             public void run() {
                 txtStatus.setText(str);
+            }
+        });
+    }
+
+    public void addItemToMenu(final String item){
+        Log.i("FOUND", item);
+
+        final CheckBox cb = new CheckBox(MainActivity.this);
+        cb.setText(item.substring(5));
+        cb.setTextSize(18);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 50, 0, 50);
+
+        final LinearLayout.LayoutParams lp_copy = lp;
+
+        final View v = new View(this);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                llMenu.addView(cb, lp_copy);
+                btnPlaceOrder.setVisibility(v.VISIBLE);
             }
         });
     }
