@@ -50,7 +50,7 @@ public class bleScanner {
         if (mBluetoothManager.getAdapter().isEnabled()) {
             mDiscoveredDevices.clear();
             ScanFilter.Builder filterBuilder = new ScanFilter.Builder();
-            filterBuilder.setServiceUuid(new ParcelUuid(UUID.fromString(Constants.CHAT_SERVICE_UUID)));
+            filterBuilder.setServiceUuid(new ParcelUuid(UUID.fromString(Constants.VM_SERVICE_UUID)));
             ScanFilter filter = filterBuilder.build();
             List<ScanFilter> filters = new ArrayList<ScanFilter>();
             filters.add(filter);
@@ -81,12 +81,12 @@ public class bleScanner {
             public void onServicesDiscovered(BluetoothGatt gatt, int status) {
                 super.onServicesDiscovered(gatt, status);
                 mGatt = gatt;
-                refreshDeviceCache(mGatt);
+                //refreshDeviceCache(mGatt);
                 for (int i = 0; i < gatt.getServices().size(); i++) {
                     BluetoothGattService service = gatt.getServices().get(i);
                     Log.e("bleScanner", "Service discovered: " + service.getUuid());
 
-                    if (service.getUuid().equals(UUID.fromString(Constants.CHAT_SERVICE_UUID))) {
+                    if (service.getUuid().equals(UUID.fromString(Constants.VM_SERVICE_UUID))) {
                         for (int j = 0; j < service.getCharacteristics().size(); j++) {
                             mCharacteristic = service.getCharacteristics().get(j);
                             Log.e("bleScanner", "Characteristic discovered: " + mCharacteristic.getUuid());

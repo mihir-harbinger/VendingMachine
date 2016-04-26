@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.graphics.Color;
@@ -41,9 +42,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Button btnPlaceOrder;
     private Button btnToggleMachine;
     private TabHost tabHost;
+    private EditText edtTxtDeviceName;
 
     //handler
     private Handler handler;
+
+    //temp
+    private String deviceMfg;
+    private String deviceModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         txtAdvertisementStatus = (TextView) findViewById(R.id.textView3);
         txtPrintMessage = (TextView) findViewById(R.id.textView5);
         txtStatus = (TextView) findViewById(R.id.textView6);
+        edtTxtDeviceName = (EditText) findViewById(R.id.edtTxtDeviceName);
 
         //onClick listeners
         findViewById(R.id.button_scan).setOnClickListener(this);
@@ -84,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         tabHost.setCurrentTab(0);
 
         handler = new Handler();
+
+        //set device name
+        //deviceMfg = android.os.Build.MANUFACTURER.substring(0,1).toUpperCase() + android.os.Build.MANUFACTURER.substring(1);
+        deviceModel = android.os.Build.MODEL.substring(0,1).toUpperCase() + android.os.Build.MODEL.substring(1);
+        edtTxtDeviceName.setText(deviceModel);
 
         //check bluetooth status at startup
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);

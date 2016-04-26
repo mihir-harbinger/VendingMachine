@@ -77,7 +77,7 @@ public class bleAdvertiser {
                     @Override
                     public void onCharacteristicWriteRequest(BluetoothDevice device, int requestId, BluetoothGattCharacteristic characteristic, boolean preparedWrite, boolean responseNeeded, int offset, byte[] value) {
                         super.onCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value);
-                        if (characteristic.getUuid().equals(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID))) {
+                        if (characteristic.getUuid().equals(UUID.fromString(Constants.VM_CHARACTERISTIC_UUID))) {
                             String msg = "";
                             if (value != null) {
                                 msg = new String(value);
@@ -103,7 +103,7 @@ public class bleAdvertiser {
         AdvertiseData.Builder dataBuilder = new AdvertiseData.Builder();
         dataBuilder.setIncludeTxPowerLevel(false); //necessity to fit in 31 byte advertisement
         //dataBuilder.setManufacturerData(0, advertisingBytes);
-        dataBuilder.addServiceUuid(new ParcelUuid(UUID.fromString(Constants.CHAT_SERVICE_UUID)));
+        dataBuilder.addServiceUuid(new ParcelUuid(UUID.fromString(Constants.VM_SERVICE_UUID)));
         //dataBuilder.setServiceData(pUUID, new byte[]{});
 
         AdvertiseSettings.Builder settingsBuilder = new AdvertiseSettings.Builder();
@@ -124,7 +124,7 @@ public class bleAdvertiser {
 
     public void sendMessage(String msg) {
         if (mConnectedDevice != null) {
-            BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID));
+            BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.VM_CHARACTERISTIC_UUID));
             characteristic.setValue(msg);
             Log.i("bleAdvertiser", "onCharacteristicWrite and notification");
             mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
@@ -137,7 +137,7 @@ public class bleAdvertiser {
             @Override
             public void run() {
                 if (mConnectedDevice != null) {
-                    BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID));
+                    BluetoothGattCharacteristic characteristic = ServiceFactory.generateService().getCharacteristic(UUID.fromString(Constants.VM_CHARACTERISTIC_UUID));
                     characteristic.setValue(msg);
                     Log.i("bleAdvertiser", "onCharacteristicWrite and notification");
                     mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);

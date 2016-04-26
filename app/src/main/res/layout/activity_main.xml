@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode ="true"
+    android:descendantFocusability="beforeDescendants"
     tools:context="com.example.mihir.vendingmachine.MainActivity">
 
     <LinearLayout
@@ -48,6 +51,30 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:id="@+id/linearLayout">
+                            <LinearLayout
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:layout_width="0px"
+                                android:layout_height="0px"/>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="5dp"
+                                android:focusableInTouchMode="true"
+                                android:layout_marginBottom="20dp">
+
+                                <EditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textPersonName"
+                                    android:text="Name"
+                                    android:ems="10"
+                                    android:id="@+id/edtTxtDeviceName"
+                                    android:maxLength="8" />
+                            </LinearLayout>
 
                             <CheckBox
                                 android:layout_width="match_parent"
@@ -118,6 +145,7 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_weight="0.5" />
                             </LinearLayout>
+
                         </LinearLayout>
 
                         <LinearLayout
