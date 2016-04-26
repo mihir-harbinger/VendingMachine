@@ -6,7 +6,6 @@ package com.example.mihir.vendingmachine;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattServer;
 import android.bluetooth.BluetoothGattServerCallback;
 import android.bluetooth.BluetoothGattService;
@@ -33,9 +32,6 @@ public class bleAdvertiser {
     private BluetoothDevice mConnectedDevice;
     private Context mContext;
     private MainActivity mActivity;
-//    private BluetoothGattDescriptor descriptor;
-//    private BluetoothGattCharacteristic mCharacteristic;
-
 
     public bleAdvertiser(Context context, BluetoothManager bluetoothManager) {
         mBluetoothManager = bluetoothManager;

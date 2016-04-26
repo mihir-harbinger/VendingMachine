@@ -1,11 +1,13 @@
 package com.example.mihir.vendingmachine;
 
-import android.annotation.TargetApi;
+/**
+ * Created by mihir on 21/4/16.
+ */
+
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
@@ -25,10 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by mihir on 21/4/16.
- */
-
 public class bleScanner {
 
     static final long SCAN_TIMEOUT = 5000l;
@@ -39,7 +37,6 @@ public class bleScanner {
     private Context mContext;
     private BluetoothGatt mGatt;
     private BluetoothGattCharacteristic mCharacteristic;
-    private BluetoothGattDescriptor descriptor;
     private MainActivity mActivity;
 
     public bleScanner(Context context, BluetoothManager bluetoothManager) {
@@ -95,9 +92,6 @@ public class bleScanner {
                             Log.e("bleScanner", "Characteristic discovered: " + mCharacteristic.getUuid());
                             mActivity.setConnectionStatus("Connected", true);
                             gatt.setCharacteristicNotification(mCharacteristic, true);
-//                            descriptor = mCharacteristic.getDescriptor(UUID.fromString(Constants.CHAT_CHARACTERISTIC_UUID));
-//                            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//                            gatt.writeDescriptor(descriptor);
                         }
                     }
                 }
