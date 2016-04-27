@@ -83,7 +83,7 @@ public class bleAdvertiser {
                                 msg = new String(value);
                                 if(msg.equals("HANDSHAKE")){
                                     for (String str: items) {
-                                        sendMessageWithDelay("ITEM "+str);
+                                        sendMessage("ITEM "+str);
                                     }
                                 }
                                 else{
@@ -150,7 +150,7 @@ public class bleAdvertiser {
                     mGattserver.notifyCharacteristicChanged(mConnectedDevice, characteristic, false);
                 }
             }
-        }, 1000);
+        }, 5000);
 
     }
 

@@ -106,25 +106,39 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <Button
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Place Order"
-                                android:id="@+id/button_placeOrder"
-                                android:layout_weight="0.5"
-                                android:visibility="invisible" />
-
-                            <TextView
+                            <LinearLayout
+                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:id="@+id/textView6"
-                                android:inputType="textMultiLine"
-                                android:textAlignment="center"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp" />
+                                android:layout_height="match_parent">
+
+                                <Button
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Place Order"
+                                    android:id="@+id/button_placeOrder"
+                                    android:layout_weight="0.5"
+                                    android:visibility="invisible" />
+
+                                <Button
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Done"
+                                    android:id="@+id/button_cancel"
+                                    android:layout_weight="0.5"
+                                    android:visibility="invisible" />
+                            </LinearLayout>
 
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/textView6"
+                            android:inputType="textMultiLine"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"

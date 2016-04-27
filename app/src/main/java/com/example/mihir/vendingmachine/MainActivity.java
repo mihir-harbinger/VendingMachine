@@ -1,5 +1,6 @@
 package com.example.mihir.vendingmachine;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Button btnScan;
     private Button btnPlaceOrder;
     private Button btnToggleMachine;
+    private Button btnResetActivity;
     private TabHost tabHost;
     private LinearLayout llMenu;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         btnScan         = (Button) findViewById(R.id.button_scan);
         btnPlaceOrder   = (Button) findViewById(R.id.button_placeOrder);
         btnToggleMachine= (Button) findViewById(R.id.button_advertise);
+        btnResetActivity = (Button) findViewById(R.id.button_cancel);
 
         //ui outlets
         txtBluetoothStatus = (TextView) findViewById(R.id.textView1);
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         findViewById(R.id.button_scan).setOnClickListener(this);
         findViewById(R.id.button_advertise).setOnClickListener(this);
         findViewById(R.id.button_placeOrder).setOnClickListener(this);
+        findViewById(R.id.button_cancel).setOnClickListener(this);
 
         //tab view
         tabHost = (TabHost) findViewById(R.id.tabHost);
@@ -189,6 +192,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     mBleScanner.sendMessage("REQ");
                 }
                 break;
+            case R.id.button_cancel:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
         }
     }
 
@@ -292,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             public void run() {
                 llMenu.addView(cb, lp_copy);
                 btnPlaceOrder.setVisibility(v.VISIBLE);
+                btnResetActivity.setVisibility(v.VISIBLE);
             }
         });
     }
