@@ -38,6 +38,45 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Vending Machine OFF"
+                            android:id="@+id/textView3"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:textAlignment="center"
+                            android:padding="20dp" />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Turn ON"
+                            android:id="@+id/button_advertise" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/textView5"
+                            android:layout_marginTop="20dp"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/linearLayout_connDevices"></LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
                         android:id="@+id/linearLayout4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -178,39 +217,7 @@
                         </RelativeLayout>
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearLayout5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="20dp">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Vending Machine OFF"
-                            android:id="@+id/textView3"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:textAlignment="center"
-                            android:padding="20dp" />
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Turn ON"
-                            android:id="@+id/button_advertise" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:id="@+id/textView5"
-                            android:layout_marginTop="20dp"
-                            android:textAlignment="center" />
-
-                    </LinearLayout>
 
                 </FrameLayout>
             </LinearLayout>
