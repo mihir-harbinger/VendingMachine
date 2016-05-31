@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             case R.id.button_placeOrder:
                 if (mBleScanner != null) {
                     mBleScanner.sendMessage("REQ");
+                    Log.i("REQUEST", "REQ");
                 }
                 break;
             case R.id.button_cancel:
